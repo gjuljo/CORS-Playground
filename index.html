@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" /> 
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+</head>
+<body>
+<div>
+Hello World
+<p>
+<button id="button">Press Me</button>
+</div>
+<script>
+    $("button").click(function(){
+        var mycookie = Cookies.get('mycookie');
+        var mytoken  = Cookies.get('token_id');
+        $.ajax({
+            method      :  'post',
+            url         :  'http://localhost:8080/api',
+            xhrFields   :  { 'withCredentials': true },
+            data        :  '{"myrequest":"mydata"}',
+            contentType :  'application/json; charset=utf-8',
+            crossDomain :  true,
+            headers     :  {'Authorization': 'Bearer ' + mytoken,'MyCustomHeader':mycookie},
+            success     :  function (data, status) {
+                              alert("Data: " + data + "\nStatus: " + status);
+                           }
+        });
+});
+</script>
+</body>
+</html>
